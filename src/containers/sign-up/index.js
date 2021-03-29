@@ -15,6 +15,25 @@ class SignUp extends Component {
 		confirmPassword: ''
 	};
 
+	shouldComponentUpdate(nextProps, nextState) {
+		const {firstName, lastName, email, password, confirmPassword} = this.state;
+
+		if (firstName !== nextState.firstName) {
+			return true;
+		}
+		if (lastName !== nextState.lastName) {
+			return true;
+		}
+		if (password !== nextState.password) {
+			return true;
+		}
+		if (confirmPassword !== nextState.confirmPassword) {
+			return true;
+		}
+
+		return email !== nextState.email;
+	}
+
 	onSignUp = () => {
 		const {firstName, lastName, email, password, confirmPassword} = this.state;
 

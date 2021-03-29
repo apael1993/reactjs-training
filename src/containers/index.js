@@ -5,7 +5,7 @@ import SignUp from './sign-up';
 class App extends Component {
 
 	state = {
-		isSignInScreen: true
+		isSignInScreen: false
 	};
 
 	shouldComponentUpdate(nextProps, nextState) {
@@ -25,7 +25,7 @@ class App extends Component {
 			<SignIn changeScreen={this.toggleScreen}/>
 		) : (
 			<SignUp changeScreen={this.toggleScreen}/>
-		)
+		);
 	}
 }
 

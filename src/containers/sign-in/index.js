@@ -12,6 +12,16 @@ class SignIn extends Component {
 		password: ''
 	}
 
+	shouldComponentUpdate(nextProps, nextState) {
+		const {email, password} = this.state;
+
+		if (password !== nextState.password) {
+			return true;
+		}
+
+		return email !== nextState.email;
+	}
+
 	onSignIn = () => {
 		const {email, password} = this.state;
 
