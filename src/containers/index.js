@@ -5,7 +5,7 @@ import SignUp from './sign-up';
 class App extends Component {
 
 	state = {
-		isSignInScreen: false
+		isSignInScreen: true
 	};
 
 	shouldComponentUpdate(nextProps, nextState) {

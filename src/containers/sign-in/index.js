@@ -13,7 +13,13 @@ class SignIn extends Component {
 	}
 
 	onSignIn = () => {
+		const {email, password} = this.state;
 
+		console.log({email, password});
+	};
+
+	onEmailChange = (e) => {
+		this.setState({email: e.target.value});
 	};
 
 	render() {
@@ -22,10 +28,23 @@ class SignIn extends Component {
 
 		return (
 			<div>
-				Email: <input type="text" value={email}/><br/>
-				Password: <input type="password" value={password}/><br/>
+				Email:
+				<input
+					onChange={this.onEmailChange}
+					value={email}
+					type='text'
+				/><br/>
+				Password:
+				<input
+					onChange={(e) => {
+						this.setState({password: e.target.value});
+					}}
+					value={password}
+					type='password'
+				/><br/>
 
-				<button onClick={this.onSignIn}>Sign In</button><br/>
+				<button onClick={this.onSignIn}>Sign In</button>
+				<br/>
 				<button onClick={changeScreen}>Go To Sign Up</button>
 			</div>
 		);
