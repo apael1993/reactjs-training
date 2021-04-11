@@ -1,31 +1,39 @@
-import React, {Component} from 'react';
+import {SCREEN_IDS} from '../helpers/constants';
+import React, {PureComponent} from 'react';
 import SignIn from './sign-in';
 import SignUp from './sign-up';
+import Home from './home';
 
-class App extends Component {
+class App extends PureComponent {
 
 	state = {
-		isSignInScreen: false
+		screenId: SCREEN_IDS.HOME
 	};
 
-	shouldComponentUpdate(nextProps, nextState) {
-		return this.state.isSignInScreen !== nextState.isSignInScreen;
-	}
-
-	toggleScreen = () => {
+	navigate = (screenId) => {
 		this.setState({
-			isSignInScreen: !this.state.isSignInScreen
+			screenId
 		});
 	};
 
-	render() {
-		const {isSignInScreen} = this.state;
+	getScreen = () => {
+		const {screenId} = this.state;
 
-		return isSignInScreen ? (
-			<SignIn changeScreen={this.toggleScreen}/>
-		) : (
-			<SignUp changeScreen={this.toggleScreen}/>
-		);
+		switch (screenId) {
+			case SCREEN_IDS.SIGN_IN: {
+				return <SignIn navigate={this.navigate}/>
+			}
+			case SCREEN_IDS.SIGN_UP: {
+				return <SignUp navigate={this.navigate}/>
+			}
+			case SCREEN_IDS.HOME: {
+				return <Home/>;
+			}
+		}
+	};
+
+	render() {
+		return this.getScreen();
 	}
 }
 

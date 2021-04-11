@@ -1,10 +1,12 @@
-import React, {Component} from 'react';
+import InputRaw from '../../components/shared/input-raw';
+import {SCREEN_IDS} from '../../helpers/constants';
+import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 
-class SignIn extends Component {
+class SignIn extends PureComponent {
 
 	static propTypes = {
-		changeScreen: PropTypes.func.isRequired
+		navigate: PropTypes.func.isRequired
 	};
 
 	state = {
@@ -12,50 +14,41 @@ class SignIn extends Component {
 		password: ''
 	}
 
-	shouldComponentUpdate(nextProps, nextState) {
-		const {email, password} = this.state;
-
-		if (password !== nextState.password) {
-			return true;
-		}
-
-		return email !== nextState.email;
-	}
-
 	onSignIn = () => {
-		const {email, password} = this.state;
+		const {navigate} = this.props;
 
-		console.log({email, password});
+		navigate(SCREEN_IDS.HOME);
 	};
 
 	onEmailChange = (e) => {
 		this.setState({email: e.target.value});
 	};
 
+	onPasswordChange = (e) => {
+		this.setState({password: e.target.value});
+	};
+
 	render() {
-		const {changeScreen} = this.props;
+		const {navigate} = this.props;
 		const {email, password} = this.state;
 
 		return (
 			<div>
-				Email:
-				<input
+				<InputRaw
 					onChange={this.onEmailChange}
+					label={'Email'}
 					value={email}
-					type='text'
-				/><br/>
-				Password:
-				<input
-					onChange={(e) => {
-						this.setState({password: e.target.value});
-					}}
+				/>
+				<InputRaw
+					onChange={this.onPasswordChange}
+					label={'Password'}
+					type={'password'}
 					value={password}
-					type='password'
-				/><br/>
+				/>
 
 				<button onClick={this.onSignIn}>Sign In</button>
 				<br/>
-				<button onClick={changeScreen}>Go To Sign Up</button>
+				<button onClick={() => navigate(SCREEN_IDS.SIGN_UP)}>Go To Sign Up</button>
 			</div>
 		);
 	}

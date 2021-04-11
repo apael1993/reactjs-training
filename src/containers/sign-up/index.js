@@ -1,10 +1,12 @@
-import React, {Component} from 'react';
+import InputRaw from '../../components/shared/input-raw';
+import {SCREEN_IDS} from '../../helpers/constants';
+import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 
-class SignUp extends Component {
+class SignUp extends PureComponent {
 
 	static propTypes = {
-		changeScreen: PropTypes.func.isRequired
+		navigate: PropTypes.func.isRequired
 	};
 
 	state = {
@@ -15,73 +17,52 @@ class SignUp extends Component {
 		confirmPassword: ''
 	};
 
-	shouldComponentUpdate(nextProps, nextState) {
-		const {firstName, lastName, email, password, confirmPassword} = this.state;
-
-		if (firstName !== nextState.firstName) {
-			return true;
-		}
-		if (lastName !== nextState.lastName) {
-			return true;
-		}
-		if (password !== nextState.password) {
-			return true;
-		}
-		if (confirmPassword !== nextState.confirmPassword) {
-			return true;
-		}
-
-		return email !== nextState.email;
-	}
-
 	onSignUp = () => {
-		const {firstName, lastName, email, password, confirmPassword} = this.state;
+		const {navigate} = this.props;
+		const {password, confirmPassword} = this.state;
 
 		if (password === confirmPassword) {
-			console.log({firstName, lastName, email, password});
+			navigate(SCREEN_IDS.SIGN_IN);
 		}
 	};
 
 	render() {
-		const {changeScreen} = this.props;
+		const {navigate} = this.props;
 		const {firstName, lastName, email, password, confirmPassword} = this.state;
 
 		return (
 			<div>
-				First Name:
-				<input
+				<InputRaw
 					onChange={(e) => this.setState({firstName: e.target.value})}
+					label={'First Name'}
 					value={firstName}
-					type='text'
-				/><br/>
-				Last Name:
-				<input
+				/>
+				<InputRaw
 					onChange={(e) => this.setState({lastName: e.target.value})}
+					label={'Last Name'}
 					value={lastName}
-					type='text'
-				/><br/>
-				Email:
-				<input
+				/>
+				<InputRaw
 					onChange={(e) => this.setState({email: e.target.value})}
+					label={'Email'}
 					value={email}
-					type='text'
-				/><br/>
-				Password:
-				<input
+				/>
+				<InputRaw
 					onChange={(e) => this.setState({password: e.target.value})}
+					label={'Password'}
+					type={'password'}
 					value={password}
-					type='password'
-				/><br/>
-				Confirm password:
-				<input
+				/>
+				<InputRaw
 					onChange={(e) => this.setState({confirmPassword: e.target.value})}
+					label={'Confirm password'}
 					value={confirmPassword}
-					type='password'
-				/><br/>
+					type={'password'}
+				/>
 
 				<button onClick={this.onSignUp}>Sign Up</button><br/>
 
-				<button onClick={changeScreen}>Go To Sign In</button>
+				<button onClick={() => navigate(SCREEN_IDS.SIGN_IN)}>Go To Sign In</button>
 			</div>
 		);
 	}
