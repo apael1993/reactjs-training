@@ -1,13 +1,21 @@
-import todosCtrl from '../../controllers/todos';
+import TodosCtrl from '../../controllers/todos';
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
 
 class Home extends Component {
 
+	static propTypes = {
+		todos: PropTypes.array.isRequired
+	};
+
 	componentDidMount() {
-		todosCtrl.getTodos();
+		TodosCtrl.getTodos();
 	}
 
 	render() {
+		const {todos} = this.props;
+
 		return (
 			<div>
 				Welcome Home!!!
@@ -16,4 +24,12 @@ class Home extends Component {
 	}
 }
 
-export default Home;
+const mapStateToProps = (state) => {
+	const todos = state.todos;
+
+	return {
+		todos
+	};
+};
+
+export default connect(mapStateToProps)(Home);

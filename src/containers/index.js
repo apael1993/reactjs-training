@@ -29,6 +29,9 @@ class App extends PureComponent {
 			case SCREEN_IDS.HOME: {
 				return <Home/>;
 			}
+			default: {
+				return null;
+			}
 		}
 	};
 
