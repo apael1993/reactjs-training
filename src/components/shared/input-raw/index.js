@@ -5,8 +5,8 @@ class InputRaw extends PureComponent {
 
 	static propTypes = {
 		onChange: PropTypes.func.isRequired,
-		label: PropTypes.string.isRequired,
 		value: PropTypes.string.isRequired,
+		label: PropTypes.string,
 		type: PropTypes.string
 	};
 
@@ -15,7 +15,7 @@ class InputRaw extends PureComponent {
 
 		return (
 			<>
-				{label}:
+				{label ? `${label}:` : null}
 				<input
 					type={type || 'text'}
 					onChange={onChange}
