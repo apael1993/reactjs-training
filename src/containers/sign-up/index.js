@@ -1,13 +1,7 @@
 import InputRaw from '../../components/shared/input-raw';
-import {SCREEN_IDS} from '../../helpers/constants';
 import React, {PureComponent} from 'react';
-import PropTypes from 'prop-types';
 
 class SignUp extends PureComponent {
-
-	static propTypes = {
-		navigate: PropTypes.func.isRequired
-	};
 
 	state = {
 		firstName: '',
@@ -18,16 +12,14 @@ class SignUp extends PureComponent {
 	};
 
 	onSignUp = () => {
-		const {navigate} = this.props;
 		const {password, confirmPassword} = this.state;
 
 		if (password === confirmPassword) {
-			navigate(SCREEN_IDS.SIGN_IN);
+			// TODO: Sign up action
 		}
 	};
 
 	render() {
-		const {navigate} = this.props;
 		const {firstName, lastName, email, password, confirmPassword} = this.state;
 
 		return (
@@ -62,7 +54,7 @@ class SignUp extends PureComponent {
 
 				<button onClick={this.onSignUp}>Sign Up</button><br/>
 
-				<button onClick={() => navigate(SCREEN_IDS.SIGN_IN)}>Go To Sign In</button>
+				<button>Go To Sign In</button>
 			</div>
 		);
 	}

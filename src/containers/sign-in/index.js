@@ -1,13 +1,7 @@
 import InputRaw from '../../components/shared/input-raw';
-import {SCREEN_IDS} from '../../helpers/constants';
 import React, {PureComponent} from 'react';
-import PropTypes from 'prop-types';
 
 class SignIn extends PureComponent {
-
-	static propTypes = {
-		navigate: PropTypes.func.isRequired
-	};
 
 	state = {
 		email: '',
@@ -15,9 +9,7 @@ class SignIn extends PureComponent {
 	}
 
 	onSignIn = () => {
-		const {navigate} = this.props;
-
-		navigate(SCREEN_IDS.HOME);
+		// TODO: Sign in action
 	};
 
 	onEmailChange = (e) => {
@@ -29,7 +21,6 @@ class SignIn extends PureComponent {
 	};
 
 	render() {
-		const {navigate} = this.props;
 		const {email, password} = this.state;
 
 		return (
@@ -48,7 +39,7 @@ class SignIn extends PureComponent {
 
 				<button onClick={this.onSignIn}>Sign In</button>
 				<br/>
-				<button onClick={() => navigate(SCREEN_IDS.SIGN_UP)}>Go To Sign Up</button>
+				<button>Go To Sign Up</button>
 			</div>
 		);
 	}
