@@ -1,73 +1,62 @@
-import InputRaw from '../../components/shared/input-raw';
-import Table from '../../components/shared/table';
-import TodosCtrl from '../../controllers/todos';
+import Todos from '../../components/home/todos';
+import Users from '../../components/home/users';
+import Posts from '../../components/home/posts';
 import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import PropTypes from 'prop-types';
 
-const COLUMNS = [
-	{
-		id: 1,
-		label: 'Id',
-		key: 'id'
-	},
-	{
-		id: 2,
-		label: 'Title',
-		key: 'title'
-	},
-	{
-		id: 3,
-		label: 'Completed',
-		key: 'completed'
-	}
-];
-
+const TAB_IDS = {
+	TODOS: 1,
+	USERS: 2,
+	POSTS: 3
+};
 
 class Home extends Component {
 
-	static propTypes = {
-		todos: PropTypes.array.isRequired
-	};
-
 	state = {
-		searchedText: ''
+		selectedTabId: TAB_IDS.TODOS
+	}
+
+	changeTab = (tabId) => {
+		const {selectedTabId} = this.state;
+
+		if (selectedTabId !== tabId) {
+			this.setState({
+				selectedTabId: tabId
+			});
+		}
+	}
+
+	getSelectedTab = () => {
+		const {selectedTabId} = this.state;
+
+		switch (selectedTabId) {
+			case TAB_IDS.TODOS: {
+				return <Todos/>;
+			}
+			case TAB_IDS.USERS: {
+				return <Users/>;
+			}
+			case TAB_IDS.POSTS: {
+				return <Posts/>;
+			}
+			default: {
+				return null;
+			}
+		}
 	};
-
-	componentDidMount() {
-		TodosCtrl.getTodos();
-	}
-
-	onSearchedTextChange = (e) => {
-		this.setState({searchedText: e.target.value});
-	}
 
 	render() {
-		const {todos} = this.props;
-		const {searchedText} = this.state;
-
 		return (
 			<div>
-				<InputRaw
-					onChange={this.onSearchedTextChange}
-					value={searchedText}
-				/>
+				<ul>
+					<li onClick={() => this.changeTab(TAB_IDS.TODOS)}>Todos</li>
+					<li onClick={() => this.changeTab(TAB_IDS.USERS)}>Users</li>
+					<li onClick={() => this.changeTab(TAB_IDS.POSTS)}>Posts</li>
+				</ul>
 
-				<Table
-					items={todos.filter(todo => todo.title.includes(searchedText))}
-					columns={COLUMNS}
-				/>
+				{this.getSelectedTab()}
 			</div>
 		);
 	}
 }
 
-const mapStateToProps = (state) => {
-	const todos = state.todos;
-
-	return {
-		todos
-	};
-};
-
-export default connect(mapStateToProps)(Home);
+export default Home;
